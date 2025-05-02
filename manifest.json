@@ -18,7 +18,7 @@
       "boards:write",
       "identity:read"
     ],
-    "redirectUris": ["https://github.com/SaharWeinberg/miro-chatbot-app/"],
+    "redirectUris": ["https://SaharWeinberg.github.io/miro-chatbot-app/"],
     "sidebar": {
       "url": "https://SaharWeinberg.github.io/miro-chatbot-app/",
       "width": 400
