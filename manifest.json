@@ -1,0 +1,27 @@
+{
+    "name": "Chatbot Architect AI",
+    "description": "Structure, tag and optimize chatbot flows with AI inside Miro.",
+    "editor": {
+      "toolbar": {
+        "buttons": [
+          {
+            "iconUrl": "https://freesvg.org/img/1538298822.png",
+            "tooltip": "Open Chatbot Architect",
+            "action": "sidebar"
+          }
+        ]
+      }
+    },
+    "permissions": [
+      "boards:read",
+      "boards:read:items",
+      "boards:write",
+      "identity:read"
+    ],
+    "redirectUris": ["https://github.com/SaharWeinberg/miro-chatbot-app/"],
+    "sidebar": {
+      "url": "https://github.com/SaharWeinberg/miro-chatbot-app/",
+      "width": 400
+    }
+  }
+  
