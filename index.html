@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Miro Chatbot Architect</title>
+  <title>Chatbot Architect Sidebar</title>
   <meta charset="UTF-8" />
-  <script src="https://unpkg.com/@mirohq/websdk"></script>
   <style>
     body { font-family: sans-serif; padding: 20px; }
     input, textarea, button { margin-top: 10px; display: block; width: 100%; }
@@ -43,21 +42,6 @@
   </div>
 
   <script>
-    miro.onReady(() => {
-      miro.initialize({
-        extensionPoints: {
-          toolbar: {
-            title: 'Chatbot Architect',
-            toolbarSvgIcon: '<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" fill="#007aff"/></svg>',
-            librarySvgIcon: '<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" fill="#007aff"/></svg>',
-            onClick: () => {
-              miro.board.ui.openLeftSidebar('index.html');
-            }
-          }
-        }
-      });
-    });
-
     async function tagSelection() {
       const selection = await miro.board.getSelection();
       const section = document.getElementById('sectionType').value;
