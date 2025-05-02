@@ -43,6 +43,15 @@
   </div>
 
   <script>
+    // Miro SDK setup to register the openSidebar action
+    miro.onReady(() => {
+      miro.initialize();
+
+      miro.board.ui.on('openSidebar', async () => {
+        await miro.board.ui.openLeftSidebar('index.html');
+      });
+    });
+
     async function tagSelection() {
       const selection = await miro.board.getSelection();
       const section = document.getElementById('sectionType').value;
