@@ -43,12 +43,18 @@
   </div>
 
   <script>
-    // Miro SDK setup to register the openSidebar action
     miro.onReady(() => {
-      miro.initialize();
-
-      miro.board.ui.on('openSidebar', async () => {
-        await miro.board.ui.openLeftSidebar('index.html');
+      miro.initialize({
+        extensionPoints: {
+          toolbar: {
+            title: 'Chatbot Architect',
+            toolbarSvgIcon: '<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" fill="#007aff"/></svg>',
+            librarySvgIcon: '<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" fill="#007aff"/></svg>',
+            onClick: () => {
+              miro.board.ui.openLeftSidebar('index.html');
+            }
+          }
+        }
       });
     });
 
