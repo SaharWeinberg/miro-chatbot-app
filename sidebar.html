@@ -42,5 +42,33 @@
   </div>
 
   <script>
-    async function tagSelection() {
-      const selection = await miro.board.
+    miro.onReady(() => {
+      async function tagSelection() {
+        const selection = await miro.board.getSelection();
+        const section = document.getElementById('sectionType').value;
+
+        for (const item of selection) {
+          await item.setMetadata('chatbot', { section });
+        }
+        alert(`Tagged ${selection.length} item(s) as "${section}"`);
+      }
+
+      async function analyzeSelection() {
+        const selection = await miro.board.getSelection();
+        const output = document.getElementById('output');
+        output.textContent = '';
+
+        for (const item of selection) {
+          const meta = await item.getMetadata('chatbot');
+          const text = item.plainText || item.title || '[No text]';
+          output.textContent += `ID: ${item.id}\nText: ${text}\nSection: ${meta?.section || 'N/A'}\n---\n`;
+        }
+      }
+
+      // attach to global so buttons can call them
+      window.tagSelection = tagSelection;
+      window.analyzeSelection = analyzeSelection;
+    });
+  </script>
+</body>
+</html>
