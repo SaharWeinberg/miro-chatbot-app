@@ -53,7 +53,9 @@
   </div>
 
   <script>
-    if (typeof miro !== "undefined" && miro.onReady) {
+    if (typeof miro === "undefined" || !miro.onReady) {
+      document.body.innerHTML = "<h2>This app must be opened inside Miro.</h2>";
+    } else {
       miro.onReady(() => {
         async function tagSelection() {
           const selection = await miro.board.getSelection();
@@ -80,8 +82,6 @@
         window.tagSelection = tagSelection;
         window.analyzeSelection = analyzeSelection;
       });
-    } else {
-      document.body.innerHTML = '<h2>This page must be opened inside Miro.</h2>';
     }
   </script>
 </body>
