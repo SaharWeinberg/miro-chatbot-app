@@ -21,43 +21,47 @@
   </style>
 </head>
 <body>
-  <h1>🤖 Chatbot Architect for Miro</h1>
-
-  <div class="section">
-    <h2>1. Project Setup</h2>
-    <label>Project Name:</label>
-    <input type="text" id="projectName" placeholder="e.g. SuperBot" />
-    <label>Website URL:</label>
-    <input type="text" id="websiteUrl" placeholder="https://example.com" />
-    <label>Upload Context File:</label>
-    <input type="file" id="contextFile" />
-  </div>
-
-  <div class="section">
-    <h2>2. Chat Structure Guide</h2>
-    <p>Assign a selected frame to a section:</p>
-    <select id="sectionType">
-      <option value="welcome">Welcome Message</option>
-      <option value="cta">Call to Action</option>
-      <option value="faq">FAQ</option>
-      <option value="error">Error Handling</option>
-      <option value="feedback">Feedback Collection</option>
-    </select>
-    <button onclick="tagSelection()">Assign Selected Frame</button>
-  </div>
-
-  <div class="section">
-    <h2>3. Analyze Selected Area</h2>
-    <button onclick="analyzeSelection()">Get Context Summary of Selected</button>
-    <pre id="output"></pre>
-  </div>
+  <div id="app"></div>
 
   <script>
-    if (typeof miro === "undefined" || !miro.onReady) {
-      document.body.innerHTML = "<h2>This app must be opened inside Miro.</h2>";
+    const isMiro = typeof miro !== 'undefined' && miro.onReady;
+
+    if (!isMiro) {
+      document.getElementById('app').innerHTML =
+        "<h2>This page must be opened inside Miro's sidebar.</h2>";
     } else {
       miro.onReady(() => {
-        async function tagSelection() {
+        document.getElementById('app').innerHTML = `
+          <h1>🤖 Chatbot Architect for Miro</h1>
+          <div class="section">
+            <h2>1. Project Setup</h2>
+            <label>Project Name:</label>
+            <input type="text" id="projectName" placeholder="e.g. SuperBot" />
+            <label>Website URL:</label>
+            <input type="text" id="websiteUrl" placeholder="https://example.com" />
+            <label>Upload Context File:</label>
+            <input type="file" id="contextFile" />
+          </div>
+          <div class="section">
+            <h2>2. Chat Structure Guide</h2>
+            <p>Assign a selected frame to a section:</p>
+            <select id="sectionType">
+              <option value="welcome">Welcome Message</option>
+              <option value="cta">Call to Action</option>
+              <option value="faq">FAQ</option>
+              <option value="error">Error Handling</option>
+              <option value="feedback">Feedback Collection</option>
+            </select>
+            <button onclick="tagSelection()">Assign Selected Frame</button>
+          </div>
+          <div class="section">
+            <h2>3. Analyze Selected Area</h2>
+            <button onclick="analyzeSelection()">Get Context Summary of Selected</button>
+            <pre id="output"></pre>
+          </div>
+        `;
+
+        window.tagSelection = async () => {
           const selection = await miro.board.getSelection();
           const section = document.getElementById('sectionType').value;
 
@@ -65,9 +69,9 @@
             await item.setMetadata('chatbot', { section });
           }
           alert(`Tagged ${selection.length} item(s) as "${section}"`);
-        }
+        };
 
-        async function analyzeSelection() {
+        window.analyzeSelection = async () => {
           const selection = await miro.board.getSelection();
           const output = document.getElementById('output');
           output.textContent = '';
@@ -77,10 +81,7 @@
             const text = item.plainText || item.title || '[No text]';
             output.textContent += `ID: ${item.id}\nText: ${text}\nSection: ${meta?.section || 'N/A'}\n---\n`;
           }
-        }
-
-        window.tagSelection = tagSelection;
-        window.analyzeSelection = analyzeSelection;
+        };
       });
     }
   </script>
